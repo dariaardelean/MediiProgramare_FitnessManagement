@@ -20,19 +20,19 @@ namespace FitnessManagement.MAUI.Services
                 {
                     Name = "Pilates",
                     TrainerName = "Alina Popescu",
-                    ScheduledDate = new DateTime(2016, 1, 15, 10, 30, 0)
+                    ScheduledDate = new DateTime(2026, 1, 15, 10, 30, 0)
                 },
                 new FitnessClass
                 {
                     Name = "Yoga",
                     TrainerName = "Ana Ionescu",
-                    ScheduledDate = new DateTime(2016, 1, 16, 18, 0, 0)
+                    ScheduledDate = new DateTime(2026, 1, 16, 18, 0, 0)
                 },
                 new FitnessClass
                 {
                     Name = "Full Body Workout",
                     TrainerName = "Luca Maier",
-                    ScheduledDate = new DateTime(2016, 1, 17, 9, 0, 0)
+                    ScheduledDate = new DateTime(2026, 1, 17, 9, 0, 0)
                 }
             };
         }

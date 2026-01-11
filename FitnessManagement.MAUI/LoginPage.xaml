@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FitnessManagement.MAUI.LoginPage"
+    Title="Login"
+    BackgroundColor="#121212">
+
+    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+
+        <Label
+            Text="Login"
+            FontSize="26"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="White" />
+
+        <Entry
+            x:Name="UsernameEntry"
+            Placeholder="Username"
+            TextColor="Black"
+            BackgroundColor="White" />
+
+        <Entry
+            x:Name="PasswordEntry"
+            Placeholder="Password"
+            IsPassword="True"
+            TextColor="Black"
+            BackgroundColor="White" />
+
+        <Button
+            Text="Login"
+            BackgroundColor="#333"
+            TextColor="White"
+            Clicked="OnLoginClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>

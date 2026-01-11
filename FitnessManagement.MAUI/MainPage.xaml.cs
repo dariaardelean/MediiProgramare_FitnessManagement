@@ -1,5 +1,6 @@
 ﻿using FitnessManagement.MAUI.Models;
 using FitnessManagement.MAUI.Services;
+
 namespace FitnessManagement.MAUI
 {
     public partial class MainPage : ContentPage
@@ -47,8 +48,4 @@ namespace FitnessManagement.MAUI
             await Shell.Current.GoToAsync(nameof(MyBookingsPage));
         }
     }
-
-
-
-
 }

@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Class="FitnessManagement.MAUI.MyBookingsPage"
     Title="My Bookings"
     BackgroundColor="#121212">
@@ -13,16 +14,39 @@
             FontSize="24"
             FontAttributes="Bold"
             HorizontalOptions="Center"
-            TextColor="White" />
+            TextColor="Black" />
+
+        <DatePicker
+            x:Name="EditDatePicker"
+            TextColor="Black"
+            BackgroundColor="#F5F5F5" />
+
+        
+        <Button
+            Text="Update Booking"
+            BackgroundColor="#333"
+            TextColor="White"
+            Clicked="OnUpdateClicked" />
+
+        <TimePicker
+             x:Name="EditTimePicker"
+             TextColor="Black"
+             BackgroundColor="#F5F5F5"
+             Time="10:00:00" />
 
         <CollectionView x:Name="BookingsCollection">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="15" CornerRadius="10" BackgroundColor="#F5F5F5">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding ClassName}" FontAttributes="Bold" />
-                            <Label Text="{Binding TrainerName}" FontSize="13" />
-                            <Label Text="{Binding BookingDate}" FontSize="12" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Tapped="OnBookingTapped"
+                                 CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding ClassName}" FontAttributes="Bold" TextColor="Black" />
+                            <Label Text="{Binding TrainerName}" FontSize="13" TextColor="Black"/>
+                            <Label Text="{Binding BookingDate}" FontSize="12" TextColor="Black"/>
 
                             <Button
                                 Text="Cancel"

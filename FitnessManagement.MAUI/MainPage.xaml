@@ -20,7 +20,7 @@
                 Text="My Bookings"
                 Clicked="OnMyBookingsClicked"
                 BackgroundColor="#333"
-                TextColor="White"/>
+                TextColor="White" />
             
             <CollectionView x:Name="ClassesCollection">
                 <CollectionView.ItemTemplate>
