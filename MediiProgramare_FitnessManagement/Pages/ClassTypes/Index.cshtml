@@ -1,0 +1,42 @@
+﻿@page
+@model MediiProgramare_FitnessManagement.Pages.ClassTypes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassType[0].TypeName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ClassType) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <text> | </text>  <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                        <text> | </text>  <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
