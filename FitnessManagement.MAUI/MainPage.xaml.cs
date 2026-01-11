@@ -1,24 +1,54 @@
-﻿namespace FitnessManagement.MAUI
+﻿using FitnessManagement.MAUI.Models;
+using FitnessManagement.MAUI.Services;
+namespace FitnessManagement.MAUI
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private readonly FitnessClassService _service;
 
         public MainPage()
         {
             InitializeComponent();
+            _service = new FitnessClassService();
+            LoadClasses();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void LoadClasses()
         {
-            count++;
+            var classes = await _service.GetFitnessClassesAsync();
+            ClassesCollection.ItemsSource = classes;
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        private async void OnClassTapped(object sender, EventArgs e)
+        {
+            var tapped = (TappedEventArgs)e;
+            var selectedClass = tapped.Parameter as FitnessClass;
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            if (selectedClass == null)
+                return;
+
+            BookingService.Bookings.Add(new Booking
+            {
+                FitnessClassID = selectedClass.ID,
+                ClassName = selectedClass.Name,
+                TrainerName = selectedClass.TrainerName,
+                BookingDate = selectedClass.ScheduledDate
+            });
+
+            await DisplayAlert(
+                "Programare reușită ✅",
+                $"Te-ai programat la:\n{selectedClass.Name}",
+                "OK"
+            );
+        }
+
+        private async void OnMyBookingsClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(MyBookingsPage));
         }
     }
+
+
+
+
 }
