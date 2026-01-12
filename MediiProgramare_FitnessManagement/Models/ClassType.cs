@@ -11,5 +11,6 @@ namespace MediiProgramare_FitnessManagement.Models
         public string TypeName { get; set; }
 
         public ICollection<TrainerClassType> TrainerClassTypes { get; set; }
+        = new List<TrainerClassType>();
     }
 }

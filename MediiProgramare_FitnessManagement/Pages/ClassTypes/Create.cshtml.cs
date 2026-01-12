@@ -12,7 +12,7 @@ using System.Data;
 
 namespace MediiProgramare_FitnessManagement.Pages.ClassTypes
 {
-    [Authorize(Roles = "Admin")]
+    
     public class CreateModel : PageModel
     {
         private readonly MediiProgramare_FitnessManagement.Data.MediiProgramare_FitnessManagementContext _context;
@@ -34,13 +34,18 @@ namespace MediiProgramare_FitnessManagement.Pages.ClassTypes
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.ClassType == null || ClassType == null)
+            Console.WriteLine(">>> ON POST A FOST APELAT <<<");
+
+            if (!ModelState.IsValid)
             {
+                Console.WriteLine(">>> MODELSTATE INVALID <<<");
                 return Page();
             }
 
             _context.ClassType.Add(ClassType);
             await _context.SaveChangesAsync();
+
+            Console.WriteLine(">>> SALVAT CU SUCCES <<<");
 
             return RedirectToPage("./Index");
         }
