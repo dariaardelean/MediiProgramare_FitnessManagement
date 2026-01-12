@@ -19,7 +19,8 @@
         <DatePicker
             x:Name="EditDatePicker"
             TextColor="Black"
-            BackgroundColor="#F5F5F5" />
+            BackgroundColor="#F5F5F5"
+            MinimumDate="{x:Static sys:DateTime.Today}"/>
 
         
         <Button
