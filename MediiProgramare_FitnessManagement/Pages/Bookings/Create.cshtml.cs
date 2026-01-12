@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MediiProgramare_FitnessManagement.Data;
 using MediiProgramare_FitnessManagement.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediiProgramare_FitnessManagement.Pages.Bookings
 {
-    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly MediiProgramare_FitnessManagement.Data.MediiProgramare_FitnessManagementContext _context;
@@ -24,7 +24,7 @@ namespace MediiProgramare_FitnessManagement.Pages.Bookings
         public IActionResult OnGet()
         {
         ViewData["FitnessClassID"] = new SelectList(_context.FitnessClasses, "ID", "ClassName");
-        ViewData["MemberID"] = new SelectList(_context.Member, "ID", "Email");
+        
             return Page();
         }
 
@@ -35,10 +35,26 @@ namespace MediiProgramare_FitnessManagement.Pages.Bookings
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Booking == null || Booking == null)
+            var userEmail = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(userEmail))
             {
+                ModelState.AddModelError("", "Trebuie să fii logat.");
                 return Page();
             }
+
+            var member = await _context.Member
+                .FirstOrDefaultAsync(m => m.Email == userEmail);
+
+            if (member == null)
+            {
+                ModelState.AddModelError("", "Nu există membru asociat contului.");
+                return Page();
+            }
+
+            
+            Booking.MemberID = member.ID;
+            Booking.BookingDate = DateTime.Now;
 
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();

@@ -13,11 +13,11 @@ namespace MediiProgramare_FitnessManagement.Models
 
         //FK catre Member
         public int MemberID { get; set; }
-        public Member Member { get; set; }
+        public Member? Member { get; set; }
 
         //FK catre class
         public int FitnessClassID { get; set; }
-        public FitnessClass FitnessClass { get; set; }
+        public FitnessClass? FitnessClass { get; set; }
 
     }
 }

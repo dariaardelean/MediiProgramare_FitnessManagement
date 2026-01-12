@@ -138,13 +138,18 @@ namespace MediiProgramare_FitnessManagement.Areas.Identity.Pages.Account
                 {
                 await _userManager.AddToRoleAsync(user, "User");
 
-                Member ??= new Member();
-                Member.Email = Input.Email;
+                var member = new Member
+                {
+                    Email = Input.Email,
+                    FirstName = Member.FirstName,
+                    LastName = Member.LastName,
+                    Phone = "0000000000"
+                };
 
-                    _context.Member.Add(Member);
-                    await _context.SaveChangesAsync();
+                _context.Member.Add(member);
+                await _context.SaveChangesAsync();
 
-                    _logger.LogInformation("User created a new account with password.");
+                _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -12,7 +12,7 @@ using System.Data;
 
 namespace MediiProgramare_FitnessManagement.Pages.Bookings
 {
-    [Authorize(Roles = "Admin")]
+   
     public class IndexModel : PageModel
     {
         private readonly MediiProgramare_FitnessManagement.Data.MediiProgramare_FitnessManagementContext _context;
@@ -26,12 +26,20 @@ namespace MediiProgramare_FitnessManagement.Pages.Bookings
 
         public async Task OnGetAsync()
         {
-            if (_context.Booking != null)
+            IQueryable<Booking> bookingsQuery = _context.Booking
+        .Include(b => b.FitnessClass)
+        .Include(b => b.Member);
+
+            // daca NU este admin → doar booking-urile lui
+            if (!User.IsInRole("Admin"))
             {
-                Booking = await _context.Booking
-                .Include(b => b.Class)
-                .Include(b => b.Member).ToListAsync();
+                var userEmail = User.Identity.Name;
+
+                bookingsQuery = bookingsQuery
+                    .Where(b => b.Member.Email == userEmail);
             }
+
+            Booking = await bookingsQuery.ToListAsync();
         }
     }
 }
