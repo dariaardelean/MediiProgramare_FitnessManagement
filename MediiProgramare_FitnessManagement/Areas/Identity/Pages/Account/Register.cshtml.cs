@@ -143,7 +143,8 @@ namespace MediiProgramare_FitnessManagement.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Member.FirstName,
                     LastName = Member.LastName,
-                    Phone = "0000000000"
+                    Phone = Member.Phone
+                    
                 };
 
                 _context.Member.Add(member);
